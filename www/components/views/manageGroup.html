@@ -1,0 +1,65 @@
+<md-content flex layout-padding style="text-align:center;">
+
+    <md-card style="text-align:left; margin:auto;">
+        <md-toolbar>
+            <div class="md-toolbar-tools" style="background: #eee; color:#000">
+                <label>Manage Groups</label>
+            </div>
+        </md-toolbar>
+        <md-content layout-padding>
+
+            <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="Current Groups">
+                    <md-content class="md-padding">
+                        <table class="md-table" style="text-align: center;">
+                            <tr class="md-table-content-row">
+                                <th class="md-table-header">Course</th>
+                                <th class="md-table-header">Group</th>
+                            </tr>
+                            <tr  ng-repeat="x in groups">
+                                <td class="md-table-content">{{x.course.title}}</td>
+                                <td class="md-table-content">{{x.name}}</td>
+                            </tr>
+                        </table>
+                    </md-content>
+                </md-tab>
+
+                <md-tab label="Subscribe">
+                    <md-content class="md-padding">
+                        <label>Course</label>
+                        <md-select ng-model="subscribe.selectedCourse" ng-change="changeCourse()">
+                            <md-option ng-repeat="course in courses" ng-value="course">
+                                {{course.title}}
+                            </md-option>
+                        </md-select>
+                        <br><br>
+                        <label>Group</label>
+                        <md-select ng-model="subscribe.selectedGroup">
+                            <md-option ng-repeat="group in coursegroups" ng-value="group">
+                                {{group.name}}
+                            </md-option>
+                        </md-select><br><br>
+                        <md-button ng-click="subscribe()" class="md-primary md-raised">Subscribe</md-button>
+                    </md-content>
+                </md-tab>
+
+                <md-tab label="Create Group">
+                    <md-content class="md-padding">
+                        <label>Course</label>
+                        <md-select ng-model="create.selectedCourse">
+                            <md-option ng-repeat="course in courses" ng-value="course">
+                                {{course.title}}
+                            </md-option>
+                        </md-select>
+                        <br><br>
+                        <md-input-container flex>
+                            <label>Group Name</label>
+                            <input ng-model="create.groupName">
+                        </md-input-container>
+                        <md-button ng-click="create()" class="md-primary md-raised">Create Group</md-button>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+    </md-card>
+</md-content>

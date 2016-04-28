@@ -1,0 +1,31 @@
+<md-content flex layout-padding style="text-align:center;">
+
+    <md-card style="text-align:left; margin:auto;">
+        <md-toolbar>
+            <div class="md-toolbar-tools" style="background: #eee; color:#000">
+                <label>Select Group &amp; Evaluation Stage</label>
+            </div>
+        </md-toolbar>
+        <md-content layout-padding>
+            <form name="homeForm">
+                <span>
+                    <label>Group: </label>
+                    <md-select ng-model="selected.group" ng-change="changeGroup()">
+                        <md-option ng-repeat="group in groups" ng-value="group">{{group.name}}</md-option>
+                    </md-select>
+                </span><br><br>
+                <span ng-if="selected.group !== null && selected.group !== undefined">
+                    <label>Evaluation Stage: </label>
+                    <md-select ng-model="selected.stage">
+                        <md-option ng-repeat="stage in stages" ng-if="stage.is_open" ng-value="stage">{{stage.name}}</md-option>
+                    </md-select>
+                    <br><br>
+                </span>
+
+                <md-button class="md-raised md-primary" ng-click="submit()">Submit</md-button>
+                <br><br>
+                <md-button class="md-accent" ng-click="manageGroups()">Manage Groups</md-button>
+            </form>
+        </md-content>
+    </md-card>
+</md-content>

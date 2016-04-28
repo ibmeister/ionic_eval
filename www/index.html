@@ -1,0 +1,45 @@
+<html lang="en" ng-app="Evaluations">
+  <head>
+    <!--base href="/" /-->
+
+    <link rel="stylesheet" href="./components/css/app.css">
+
+    <!--<link href="./components/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="./components/css/table.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.css">
+
+      <meta name="viewport" content="width=device-width">
+      <title>Student Evaluations</title>
+  </head>
+  <body layout="column" ng-controller="IndexController">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <span class="title" style="cursor: pointer;" ng-click="go('/home')">Student Evaluations</span>
+            <span flex></span>
+            <span class="title" style="cursor: pointer;" ng-click="logout()" ng-show="showLogout">Logout</span>
+            <span class="title" style="cursor: pointer; margin-right: 10px;" ng-click="resetPassword()" ng-show="showLogout">&nbsp; &nbsp;
+              <md-tooltip>Reset Password</md-tooltip>
+              <img src="./fonts/password.png" style="width:50px;height:50px;"/> </span>
+        </div>
+    </md-toolbar>
+    <div layout="row" flex>
+      <md-content ng-view md-scroll-y="" flex="" class="md-padding ng-scope md-default-theme"></md-content>
+    </div>
+    <script src="./js/angular.min.js"></script>
+    <script src="./js/angular-animate.min.js"></script>
+    <script src="./js/angular-aria.min.js"></script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.js"></script>
+    <script src="./js/angular-route.min.js"></script>
+
+    <script src="./app.js"></script>
+    <script src="./components/controllers/index.js"></script>
+    <script src="./components/controllers/login.js"></script>
+    <script src="./components/controllers/signup.js"></script>
+    <script src="components/controllers/evaluation.js"></script>
+    <script src="components/controllers/managegroup.js"></script>
+    <script src="components/controllers/home.js"></script>
+    <script src="components/controllers/resetPassword.js"></script>
+    <script src="./components/services/URLFactory.js"></script>
+  </body>
+</html>

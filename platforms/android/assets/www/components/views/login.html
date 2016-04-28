@@ -1,0 +1,25 @@
+<md-content layout-padding style="text-align:center;">
+    <md-card style="text-align:left; margin:auto;">
+        <md-toolbar>
+            <div class="md-toolbar-tools" style="background: #eee; color:#000">
+                <label>Login</label>
+            </div>
+        </md-toolbar>
+        <md-card-content layout-padding>
+            <md-input-container>
+                <label>Email</label>
+                <input ng-model="loginform.email" type="email">
+            </md-input-container>
+
+            <md-input-container>
+                <label>Password</label>
+                <input ng-model="loginform.password" type="password" >
+            </md-input-container>
+            <br>
+            <md-button class="md-primary md-raised" ng-click="login()">&nbsp;&nbsp;Login&nbsp;&nbsp;</md-button>
+            &nbsp;&nbsp;
+            <md-button class="md-raised" ng-click="go('signup')"> &nbsp; Sign up &nbsp;</md-button><br><br>
+        </md-card-content>
+
+    </md-card>
+</md-content>

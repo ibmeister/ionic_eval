@@ -1,0 +1,268 @@
+<md-content flex layout-padding style="text-align:center;">
+
+    <md-card style="text-align:left; margin:auto;">
+        <md-toolbar>
+            <div class="md-toolbar-tools" style="background: #eee; color:#000">
+                <label>Evaluations</label>
+            </div>
+        </md-toolbar>
+        <md-content  layout-padding>
+
+            <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs>
+                <md-tab label="Self">
+                    <md-content class="md-padding">
+                        <form name="selfForm" style="overflow: auto; height:100%;">
+                            <md-input-container>
+                                <label>1. List your responsibilities within the group</label>
+                                <textarea ng-model="self.responsibilities" class="form-control" required></textarea>
+                            </md-input-container>
+
+                            <label>2. Did you complete all of the tasks assigned to you?</label>
+                            <md-radio-group ng-model="self.task_completeness" required>
+                                <md-radio-button value="yes">Yes</md-radio-button>
+                                <md-radio-button value="no"> No </md-radio-button>
+                                <md-radio-button value="most of them">Most Of Them</md-radio-button>
+                            </md-radio-group>
+
+                            <md-input-container>
+                                <label>If applicable, why did you not complete all of the assigned tasks?</label>
+                                <textarea ng-model="self.task_completeness_details"></textarea>
+                            </md-input-container>
+
+                            <label> 3. How would you rate your participation in the group?</label>
+                            <md-radio-group ng-model="self.participation" required>
+                                <md-radio-button value="1">Incredibly involved in each phase of this project</md-radio-button>
+                                <md-radio-button value="2"> Completed all work assigned to me, but was not otherwise involved </md-radio-button>
+                                <md-radio-button value="3">Completed most of the work assigned to me but other group members contributed more than I did</md-radio-button>
+                                <md-radio-button value="4">Did not contribute to the group project</md-radio-button>
+                            </md-radio-group>
+
+                            <md-input-container>
+                                <label>Explain your answer to #3</label>
+                                <textarea ng-model="self.participation_details"></textarea>
+                            </md-input-container>
+
+                            <label>4. Enter Grade (for yourself)</label>
+                            <md-radio-group ng-model="self.grade" required>
+                                <md-radio-button value='A'>A</md-radio-button>
+                                <md-radio-button value='B'>B</md-radio-button>
+                                <md-radio-button value='C'>C</md-radio-button>
+                                <md-radio-button value='D'>D</md-radio-button>
+                                <md-radio-button value='F'>F</md-radio-button>
+                            </md-radio-group>
+
+                            <md-input-container>
+                                <label>5. Enter Percentage (how much of the total progress you were responsible for)</label><br>
+                                <input ng-model="self.percentage" type="number" class="form-control" required max="100" min="0"><br>
+                            </md-input-container>
+
+                            <md-button ng-click="submitSelf()" name="save" ng-disabled="selfForm.$invalid" class="md-primary md-raised">Submit</md-button>
+                            <br><br><br>
+                        </form>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Member">
+                    <md-content class="md-padding">
+                        <form name="memberForm" style="overflow: auto; height:100%;">
+                            <label>Member:</label>
+                            <md-select ng-model="selected.groupMember" ng-change="refreshMember(selected.groupMember.id)" required>
+                                <md-option ng-repeat="groupMember in groupMembers" ng-value="groupMember" ng-if="groupMember.email !== user.email">
+                                    {{groupMember.fullname}}
+                                </md-option>
+                            </md-select>
+
+                            <md-input-container>
+                                <label>1. List their responsibilities within the group.</label>
+                                <textarea ng-model="member.responsibilities" class="form-control" required></textarea>
+                            </md-input-container>
+
+                            <label>2. Did they complete all of the tasks assigned to them?</label>
+                            <md-radio-group ng-model="member.task_completeness" required>
+                                <md-radio-button value="yes">Yes</md-radio-button>
+                                <md-radio-button value="no"> No </md-radio-button>
+                                <md-radio-button value="most of them">Most Of Them</md-radio-button>
+                            </md-radio-group>
+
+                            <md-input-container>
+                                <label>If applicable, why did they not complete all of the assigned tasks?</label>
+                                <textarea ng-model="member.task_completeness_details"></textarea>
+                            </md-input-container>
+
+                            <label> 3. How would you rate their participation in the group?</label>
+                            <md-radio-group ng-model="member.participation" required>
+                                <md-radio-button value="1">Incredibly involved in each phase of this project</md-radio-button>
+                                <md-radio-button value="2"> Completed all work assigned to them, but was not otherwise involved </md-radio-button>
+                                <md-radio-button value="3">Completed most of the work assigned to them but other group members contributed more than they did</md-radio-button>
+                                <md-radio-button value="4">Did not contribute to the group project</md-radio-button>
+                            </md-radio-group>
+
+                            <md-input-container>
+                                <label>Explain your answer to #3</label>
+                                <textarea ng-model="member.participation_details"></textarea>
+                            </md-input-container>
+
+                            <label>4. Enter Grade (theirs)</label>
+                            <md-radio-group ng-model="member.grade" required>
+                                <md-radio-button value="A">A</md-radio-button>
+                                <md-radio-button value="B">B</md-radio-button>
+                                <md-radio-button value="C">C</md-radio-button>
+                                <md-radio-button value="D">D</md-radio-button>
+                                <md-radio-button value="F">F</md-radio-button>
+                            </md-radio-group>
+
+                            <md-input-container>
+                                <label>5. Enter Percentage (how much of the total progress they were responsible for)</label><br>
+                                <input ng-model="member.percentage" type="number" class="form-control" required max="100" min="0"><br>
+                            </md-input-container>
+
+                            <md-button ng-click="submitMember()" ng-disabled="memberForm.$invalid" name="save" class="md-primary md-raised">Submit</md-button>
+                            <br><br><br>
+                        </form>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Group">
+                    <md-content class="md-padding">
+                        <form name="groupForm" style="overflow: auto; height:100%;">
+                            <label>Goals</label><br>
+                            <md-radio-group ng-model="groupEvaluation.goals" required>
+                                <md-radio-button value="1">1 - worst</md-radio-button>
+                                <md-radio-button value="2">2</md-radio-button>
+                                <md-radio-button value="3">3</md-radio-button>
+                                <md-radio-button value="4">4</md-radio-button>
+                                <md-radio-button value="5">5 - best</md-radio-button>
+                            </md-radio-group>
+                            <md-input-container>
+                                <label>Explanation For Rating</label>
+                                <textarea ng-model="groupEvaluation.goals_details"></textarea>
+                            </md-input-container>
+
+
+                            <label>Openness</label><br>
+                            <md-radio-group ng-model="groupEvaluation.openness" required>
+                              <md-radio-button value="1">1 - worst</md-radio-button>
+                              <md-radio-button value="2">2</md-radio-button>
+                              <md-radio-button value="3">3</md-radio-button>
+                              <md-radio-button value="4">4</md-radio-button>
+                              <md-radio-button value="5">5 - best</md-radio-button>
+                            </md-radio-group>
+                            <md-input-container>
+                                <label>Explanation For Rating</label>
+                                <textarea ng-model="groupEvaluation.openness_details"></textarea>
+                            </md-input-container>
+
+                            <label>Mutual Trust</label><br>
+                            <md-radio-group ng-model="groupEvaluation.mutual_trust" required>
+                              <md-radio-button value="1">1 - worst</md-radio-button>
+                              <md-radio-button value="2">2</md-radio-button>
+                              <md-radio-button value="3">3</md-radio-button>
+                              <md-radio-button value="4">4</md-radio-button>
+                              <md-radio-button value="5">5 - best</md-radio-button>
+                            </md-radio-group>
+                            <md-input-container>
+                                <label>Explanation For Rating</label>
+                                <textarea ng-model="groupEvaluation.mutual_trust_details"></textarea>
+                            </md-input-container>
+
+                            <label>Attitude Towards Difference</label><br>
+                            <md-radio-group ng-model="groupEvaluation.difference_attitude" required>
+                              <md-radio-button value="1">1 - worst</md-radio-button>
+                              <md-radio-button value="2">2</md-radio-button>
+                              <md-radio-button value="3">3</md-radio-button>
+                              <md-radio-button value="4">4</md-radio-button>
+                              <md-radio-button value="5">5 - best</md-radio-button>
+                            </md-radio-group>
+                            <md-input-container>
+                                <label>Explanation For Rating</label>
+                                <textarea ng-model="groupEvaluation.difference_attitude_details"></textarea>
+                            </md-input-container>
+
+                            <label>Support</label><br>
+                            <md-radio-group ng-model="groupEvaluation.support" required>
+                              <md-radio-button value="1">1 - worst</md-radio-button>
+                              <md-radio-button value="2">2</md-radio-button>
+                              <md-radio-button value="3">3</md-radio-button>
+                              <md-radio-button value="4">4</md-radio-button>
+                              <md-radio-button value="5">5 - best</md-radio-button>
+                            </md-radio-group>
+                            <md-input-container>
+                                <label>Explanation For Rating</label>
+                                <textarea ng-model="groupEvaluation.support_details"></textarea>
+                            </md-input-container>
+
+                            <label>Participation</label><br>
+                            <md-radio-group ng-model="groupEvaluation.participation" required>
+                              <md-radio-button value="1">1 - worst</md-radio-button>
+                              <md-radio-button value="2">2</md-radio-button>
+                              <md-radio-button value="3">3</md-radio-button>
+                              <md-radio-button value="4">4</md-radio-button>
+                              <md-radio-button value="5">5 - best</md-radio-button>
+                            </md-radio-group>
+                            <md-input-container>
+                                <label>Explanation For Rating</label>
+                                <textarea ng-model="groupEvaluation.participation_details"></textarea>
+                            </md-input-container>
+
+                            <label>Decision Making</label><br>
+                            <md-radio-group ng-model="groupEvaluation.decision_making" required>
+                              <md-radio-button value="1">1 - worst</md-radio-button>
+                              <md-radio-button value="2">2</md-radio-button>
+                              <md-radio-button value="3">3</md-radio-button>
+                              <md-radio-button value="4">4</md-radio-button>
+                              <md-radio-button value="5">5 - best</md-radio-button>
+                            </md-radio-group>
+                            <md-input-container>
+                                <label>Explanation For Rating</label>
+                                <textarea ng-model="groupEvaluation.decision_making_details"></textarea>
+                            </md-input-container>
+
+
+                            <label>Flexibility</label><br>
+                            <md-radio-group ng-model="groupEvaluation.flexibility" required>
+                              <md-radio-button value="1">1 - worst</md-radio-button>
+                              <md-radio-button value="2">2</md-radio-button>
+                              <md-radio-button value="3">3</md-radio-button>
+                              <md-radio-button value="4">4</md-radio-button>
+                              <md-radio-button value="5">5 - best</md-radio-button>
+                            </md-radio-group>
+                            <md-input-container>
+                                <label>Explanation For Rating</label>
+                                <textarea ng-model="groupEvaluation.flexibility_details"></textarea>
+                            </md-input-container>
+
+
+                            <label>Use of Member Resources</label><br>
+                            <md-radio-group ng-model="groupEvaluation.resource_use" required>
+                              <md-radio-button value="1">1 - worst</md-radio-button>
+                              <md-radio-button value="2">2</md-radio-button>
+                              <md-radio-button value="3">3</md-radio-button>
+                              <md-radio-button value="4">4</md-radio-button>
+                              <md-radio-button value="5">5 - best</md-radio-button>
+                            </md-radio-group>
+                            <md-input-container>
+                                <label>Explanation For Rating</label>
+                                <textarea ng-model="groupEvaluation.resource_use_details"></textarea>
+                            </md-input-container>
+
+                            <label>Grade (group overall)</label>
+                            <md-radio-group ng-model="groupEvaluation.grade" required>
+                                <md-radio-button value="A">A</md-radio-button>
+                                <md-radio-button value="B">B</md-radio-button>
+                                <md-radio-button value="C">C</md-radio-button>
+                                <md-radio-button value="D">D</md-radio-button>
+                                <md-radio-button value="F">F</md-radio-button>
+                            </md-radio-group>
+
+                            <md-input-container>
+                                <label>Percentage (group overall)</label><br>
+                                <input ng-model="groupEvaluation.percentage" type="number" class="form-control" required max="100" min="0"><br>
+                            </md-input-container>
+
+                            <md-button ng-click="submitGroup()" ng-disabled="groupForm.$invalid" name="save" class="md-primary md-raised">Submit</md-button>
+                            <br><br><br>
+                        </form>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+    </md-card>
+</md-content>

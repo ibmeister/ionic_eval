@@ -1,0 +1,35 @@
+<md-content flex layout-padding style="text-align:center;">
+
+    <md-card style="text-align:left; margin:auto;">
+        <md-toolbar>
+            <div class="md-toolbar-tools" style="background: #eee; color:#000">
+                <label>Sign up</label>
+            </div>
+        </md-toolbar>
+        <md-content layout-padding>
+            <form name="signupForm">
+                <md-input-container >
+                    <label>Full Name</label>
+                    <input ng-model="user.fullname" type="text" required>
+                </md-input-container>
+
+                <md-input-container >
+                    <label>Email</label>
+                    <input ng-model="user.email" type="email" required>
+                </md-input-container>
+
+                <md-input-container >
+                    <label>Password</label>
+                    <input ng-model="user.password" type="password" required>
+                </md-input-container>
+
+                <md-input-container>
+                    <label>Confirm</label>
+                    <input ng-model="confirmPassword" type="password" required>
+                </md-input-container>
+                <br>
+                <md-button class="md-primary md-raised" ng-disabled="signupForm.$invalid" ng-click="save()">Sign up</md-button>
+            </form>
+        </md-content>
+    </md-card>
+</md-content>
